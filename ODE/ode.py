@@ -18,7 +18,9 @@ def forward_difference_quotient(f: Callable[[float],float], x: float, h:float) -
     Output:
         fdq: float  -> Approximation of f'(x)
     """
-    fdq = 0
+    if h<0:
+        raise ValueError("Schrittweite muss positive sein")
+    fdq = (f(x+h)-f(x))/h
     return fdq
 
 def backward_difference_quotient(f: Callable[[float],float], x: float, h:float) -> float:
@@ -31,7 +33,11 @@ def backward_difference_quotient(f: Callable[[float],float], x: float, h:float) 
     Output:
         fdq: float  -> Approximation of f'(x)
     """
-    bdq = 0
+    if h<0:
+        raise ValueError("Schrittweite muss positive sein")
+
+    bdq = (f(x)-f(x-h))/h
+
     return bdq
 
 def central_difference_quotient(f: Callable[[float],float], x: float, h:float) -> float:
@@ -44,7 +50,9 @@ def central_difference_quotient(f: Callable[[float],float], x: float, h:float) -
     Output:
         cdq: float  -> Approximation of f'(x)
     """
-    cdq = 0
+    if h<0:
+        raise ValueError("Schrittweite muss positive sein")
+    cdq = (f(x+h)-f(x-h))/h
     return cdq
 
 def explicit_euler(rhs: Callable[[float,float], float], y0: float, t0: float, T: float, N: int) -> [np.ndarray[float], np.ndarray[float]]:
